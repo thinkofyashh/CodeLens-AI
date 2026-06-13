@@ -4,5 +4,7 @@
 __pycache__/
 myenv/
 venv/
+.venv/
 node_modules/
 .next/
+.system_instruction
