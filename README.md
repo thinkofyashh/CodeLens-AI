@@ -170,31 +170,6 @@ http://127.0.0.1:8000/docs
 
 ---
 
-## Roadmap
-
-- [ ] Add `/health` endpoint
-- [ ] Add `/explain-code` endpoint
-- [ ] Add LangChain prompt template
-- [ ] Add structured output parser
-- [ ] Add bug detection endpoint
-- [ ] Add complexity analyzer endpoint
-- [ ] Add support for multiple programming languages
-- [ ] Add frontend using React
-- [ ] Add authentication
-- [ ] Deploy API on Render / Railway / AWS
-
----
-
-## What I Will Learn From This Project
-
-- How to build AI-powered APIs using FastAPI
-- How to design request and response schemas using Pydantic
-- How to use LangChain prompts, models, chains, and output parsers
-- How to structure a backend AI project
-- How to return reliable structured responses from LLMs
-- How to write clean documentation for GitHub
-
----
 
 ## Author
 
