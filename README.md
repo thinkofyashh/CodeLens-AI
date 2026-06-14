@@ -4,7 +4,7 @@ CodeLens AI is an AI-powered code explanation app. It accepts a code snippet, pr
 
 ![CodeLens AI interface](docs/screenshots/codelens-ai-ui.png)
 
-> Save the project screenshot as `docs/screenshots/codelens-ai-ui.png` so it appears in this README.
+
 
 ## Features
 
