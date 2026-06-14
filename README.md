@@ -1,184 +1,180 @@
 # CodeLens AI
 
-**CodeLens AI** is an AI-powered Code Explainer API built with **FastAPI**, **Pydantic**, and **LangChain**.  
-It helps users understand code by generating simple explanations, line-by-line breakdowns, bug analysis, improvement suggestions, and time/space complexity insights.
+CodeLens AI is an AI-powered code explanation app. It accepts a code snippet, programming language, and explanation level, then returns a structured explanation with a summary, step-by-step breakdown, time and space complexity, possible bugs, and improvement suggestions.
 
-This project is designed as a beginner-friendly AI backend project for learning how to build real-world AI APIs.
+![CodeLens AI interface](docs/screenshots/codelens-ai-ui.png)
 
----
+> Save the project screenshot as `docs/screenshots/codelens-ai-ui.png` so it appears in this README.
 
 ## Features
 
-- Explain code in simple language
-- Generate line-by-line code explanation
-- Detect possible bugs or issues
-- Suggest code improvements
-- Explain time and space complexity
-- Support multiple explanation levels: beginner, intermediate, and advanced
-- Return structured JSON responses
-- Easy to test using Swagger UI
-
----
+- Explain code in beginner, intermediate, or advanced language
+- Support Python, JavaScript, and C++ inputs
+- Return structured JSON using a Pydantic response schema
+- Show summary, step-by-step explanation, complexity, bugs, and improvements
+- FastAPI backend with LangChain LLM workflow
+- Animated frontend built with HTML, CSS, and JavaScript
+- Swagger UI available for API testing
 
 ## Tech Stack
 
-- **Python**
-- **FastAPI**
-- **Pydantic**
-- **LangChain**
-- **OpenAI / Gemini API**
-- **Uvicorn**
-- **Python Dotenv**
+**Backend**
 
----
+- Python
+- FastAPI
+- Pydantic
+- LangChain
+- LangChain OpenAI
+- OpenAI ChatOpenAI
+- Uvicorn
+- python-dotenv
+- CORS middleware
+
+**Frontend**
+
+- HTML
+- CSS
+- JavaScript
+- Fetch API
+- Responsive layout
+- CSS animations
 
 ## Project Structure
 
 ```txt
-codelens-ai-api/
-│
-├── main.py
-├── schemas.py
-├── prompts.py
-├── chains.py
-├── config.py
+codeLensAI/
+├── backend/
+│   ├── __init__.py
+│   ├── chains.py
+│   ├── llm_model.py
+│   ├── main.py
+│   ├── prompts.py
+│   ├── routes.py
+│   ├── schema.py
+│   └── prompt_template/
+│       └── system.txt
+├── frontend/
+│   ├── app.js
+│   ├── index.html
+│   └── styles.css
 ├── requirements.txt
-├── .env
-├── .gitignore
 └── README.md
 ```
-
----
 
 ## API Endpoints
 
 ```txt
 GET  /health
 POST /explain-code
-POST /find-bugs
-POST /optimize-code
-POST /explain-complexity
 ```
 
----
-
-## Sample Request
+## Example Request
 
 ```json
 {
-  "language": "cpp",
-  "code": "for(int i = 0; i < n; i++) { cout << i; }",
-  "level": "beginner"
+  "language": "python",
+  "level": "beginner",
+  "code": "for i in range(5):\n    print(i)"
 }
 ```
 
----
-
-## Sample Response
+## Example Response
 
 ```json
 {
-  "summary": "This code prints numbers from 0 to n-1.",
-  "line_by_line_explanation": [
-    "The loop starts with i = 0.",
-    "The loop continues while i is less than n.",
-    "After every iteration, i is increased by 1.",
-    "The value of i is printed in each iteration."
+  "summary": "This Python code uses a loop to print numbers from 0 to 4.",
+  "step_by_step": [
+    "`for i in range(5):` starts a loop.",
+    "`range(5)` creates the numbers 0, 1, 2, 3, and 4.",
+    "`print(i)` displays the current number."
   ],
-  "time_complexity": "O(n)",
-  "space_complexity": "O(1)",
-  "possible_bugs": [],
+  "complexity": {
+    "time": "O(5), effectively O(1) for this fixed range.",
+    "space": "O(1)"
+  },
+  "bugs": [],
   "improvements": [
-    "Add a newline after printing each number for better readability."
+    "Add a clearer message in the print statement for beginners."
   ]
 }
 ```
 
----
+## Setup
 
-## Getting Started
-
-### 1. Clone the Repository
+### 1. Create and Activate a Virtual Environment
 
 ```bash
-git clone https://github.com/your-username/codelens-ai-api.git
-cd codelens-ai-api
+python3 -m venv .venv
+source .venv/bin/activate
 ```
 
-### 2. Create a Virtual Environment
-
-```bash
-python3 -m venv myenv
-source myenv/bin/activate
-```
-
-For Windows:
-
-```bash
-python -m venv myenv
-myenv\Scripts\activate
-```
-
-### 3. Install Dependencies
+### 2. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### 4. Create `.env` File
-
-Create a `.env` file in the root directory:
-
-```env
-OPENAI_API_KEY=your_api_key_here
-```
-
-Or, if you are using Gemini:
-
-```env
-GOOGLE_API_KEY=your_api_key_here
-```
-
-### 5. Run the Server
+If `langchain-openai` is not already installed, add it:
 
 ```bash
-uvicorn main:app --reload
+pip install langchain-openai
 ```
 
-The API will start at:
+### 3. Create `.env`
+
+Create a `.env` file in the project root:
+
+```env
+OPENAI_API_KEY=your_openai_api_key_here
+```
+
+### 4. Run the Backend
+
+```bash
+uvicorn backend.main:app --reload
+```
+
+Backend:
 
 ```txt
 http://127.0.0.1:8000
 ```
 
-Swagger UI will be available at:
+Swagger docs:
 
 ```txt
 http://127.0.0.1:8000/docs
 ```
 
----
+### 5. Run the Frontend
 
-## Example Use Cases
+From the `frontend` directory:
 
-- Students learning DSA and programming
-- Developers reviewing unfamiliar code
-- Beginners trying to understand syntax and logic
-- Interview preparation
-- Code documentation assistance
-- Debugging and optimization practice
+```bash
+python3 -m http.server 8001
+```
 
----
+Frontend:
 
+```txt
+http://127.0.0.1:8001
+```
+
+## How It Works
+
+```txt
+Frontend form
+    -> POST /explain-code
+    -> CodeExplainRequest schema
+    -> LangChain prompt
+    -> ChatOpenAI model
+    -> PydanticOutputParser
+    -> CodeExplainResponse
+    -> Frontend result panel
+```
 
 ## Author
 
-**Yash Rawat**
+Yash Rawat
 
 GitHub: [@thinkofyashh](https://github.com/thinkofyashh)
-
----
-
-## License
-
-This project is open-source and available under the MIT License.
