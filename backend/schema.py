@@ -21,4 +21,4 @@ class CodeExplainResponse(BaseModel):
     step_by_step:List[str]=Field(...,description="Explaining the User Code Line by line")
     complexity:ComplexityCode
     bugs:List[str]=Field(description="Contains the list of the Bugs .",default_factory=list)
-    improvements:List[str]=Field(description="Contains the List for the imporvment of the code.")
+    improvements:List[str]=Field(description="Contains the List for the imporvment of the code.",default_factory=list)
