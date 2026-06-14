@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CodeLens AI</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="workspace">
+        <header class="topbar">
+          <div>
+            <h1>CodeLens AI</h1>
+            <p>Explain code with summary, steps, complexity, bugs, and improvements.</p>
+          </div>
+          <div class="status" id="apiStatus">Backend idle</div>
+        </header>
+
+        <form class="editor-panel" id="explainForm">
+          <div class="controls">
+            <label>
+              Language
+              <select id="language" name="language">
+                <option value="python">Python</option>
+                <option value="javascript">JavaScript</option>
+                <option value="cpp">C++</option>
+              </select>
+            </label>
+
+            <label>
+              Level
+              <select id="level" name="level">
+                <option value="beginner">Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+              </select>
+            </label>
+
+            <button type="submit" id="submitButton">Explain Code</button>
+          </div>
+
+          <label class="code-field">
+            Code
+            <textarea
+              id="code"
+              name="code"
+              spellcheck="false"
+              required
+              placeholder="Paste your code here..."
+            >for i in range(5):
+    print(i)</textarea>
+          </label>
+        </form>
+      </section>
+
+      <section class="result-panel" aria-live="polite">
+        <div class="empty-state" id="emptyState">
+          Submit code to see the explanation here.
+        </div>
+
+        <div class="result-content hidden" id="resultContent">
+          <article>
+            <h2>Summary</h2>
+            <p id="summary"></p>
+          </article>
+
+          <article>
+            <h2>Step by Step</h2>
+            <ol id="steps"></ol>
+          </article>
+
+          <article class="complexity-grid">
+            <div>
+              <h2>Time</h2>
+              <p id="timeComplexity"></p>
+            </div>
+            <div>
+              <h2>Space</h2>
+              <p id="spaceComplexity"></p>
+            </div>
+          </article>
+
+          <article>
+            <h2>Bugs</h2>
+            <ul id="bugs"></ul>
+          </article>
+
+          <article>
+            <h2>Improvements</h2>
+            <ul id="improvements"></ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
