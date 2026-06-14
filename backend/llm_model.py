@@ -1,1 +1,7 @@
-# Choosing the Right Model .
+from langchain_openai import ChatOpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
+
+model=ChatOpenAI(model="gpt-5.4-mini",temperature=0)
+

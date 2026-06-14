@@ -1,13 +1,9 @@
 # API endpoints: /health, /explain-code, etc.
 from fastapi import APIRouter
+from backend.schema import CodeExplainRequest
+
 
 router=APIRouter()
-
-
-
-@router.get("/")
-def greeting():
-    return "hello world"
 
 
 
@@ -19,10 +15,15 @@ def checking_health():
         "message":"CodeLens-AI backend is running"
     }
 
+
 # API for Sending Code to the LLM and recieving a respinse from it .
 @router.post("/explain_code")
-def explain():
-    # Write a logic
+def explain(req:CodeExplainRequest):
+    print(req)
     return {
-        "Message":"Explain code logic API under construction ."
+        "message":"Request is handled Successfully . ",
+        "code":req.code,
+        "language":req.language,
+        "level":req.level
     }
+    
